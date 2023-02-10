@@ -16,20 +16,18 @@
 // include site configuration file, which includes siteManager libs
 require('../admin/common.inc');
 
-// create a new module. notice, returns a reference!!
-$mod1 = $SM_siteManager->loadModule('basic');
-
-// configure the module
-$mod1->addDirective('testDirective','The module received a directive');
-
 // create root template. notice, returns a reference!!
-$layout1 = $SM_siteManager->rootTemplate("basicTemplate");
+$layout1 = $SM_siteManager->rootTemplate("main.cpt");
 
-// add our module to area 'areaOne'
-$layout1->addModule($mod1, "areaOne");
+$intro  = '<b>SiteManager Test Suite</b>';
+
+if (defined('ROADSEND_PCC')) {
+    $stats = re_memo_stats();
+    $intro .= "<br><br>Roadsend AST Cache Stats:<br>Hits: {$stats['hits']}<br>Misses: {$stats['misses']}<br>Resets: {$stats['resets']}<br>";
+}
+
+// add intro
+$layout1->addText($intro, 'main');
 
 // finish display
 $SM_siteManager->completePage();
-
-
-?>
