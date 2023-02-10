@@ -43,7 +43,7 @@ class nFunctionMenu extends SM_module {
 
         $item = $menu->addItem('Aplikasi Custom SiteManager');
         $item->addLinkItem('Home','index.php');
-        $item->addLinkItem('Fitur CRUD','item.php');
+        $item->addLinkItem('Barang','item.php');
 
         // output menu
         $this->say($menu->run());
