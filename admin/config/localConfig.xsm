@@ -59,15 +59,15 @@
             <VAR name="dbType" value="mysql" />
             <VAR name="defaultConnection"   value="true" />
             <VAR name="DSN"  value = "mysql:host=localhost;dbname=test" />
-            <VAR name="userName"  value = "testUser" />
-            <VAR name="passWord"  value = "testPass" />
+            <VAR name="userName"  value = "root" />
+            <VAR name="passWord"  value = "" />
             <VAR name="persistent"  value = "true" />
         </SECTION>                                
         <SECTION name="db" id="secondary">        
             <VAR name="dbType" value="mysql" />
             <VAR name="DSN"  value = "mysql:host=localhost;dbname=test" />
-            <VAR name="userName"  value = "testUser" />
-            <VAR name="passWord"  value = "testPass" />
+            <VAR name="userName"  value = "root" />
+            <VAR name="passWord"  value = "" />
             <VAR name="persistent"  value = "true" />
         </SECTION>                                
         <SECTION name="sessions">                        

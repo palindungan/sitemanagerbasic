@@ -919,7 +919,7 @@ class SM_siteManagerRoot extends SM_object {
         // show page load time?
         if ($this->siteConfig->getVar('flags','showLoadTime')) {
             if ($GLOBALS['SM_develState']) {
-                $mem = memory_get_peak_usage();
+                $mem = "";
                 echo "\n<!-- $scriptLoadTime secs / $mem bytes / ".SM_dbWrapper::$queryCount." (".SM_dbWrapper::$readCount." read) queries -->\n";
             }
             else {
@@ -967,5 +967,3 @@ class SM_siteManagerRoot extends SM_object {
     }
 
 }
-
-?>

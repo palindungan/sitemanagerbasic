@@ -36,22 +36,22 @@ $SM_siteName    = "SiteManager Test Site";
 $SM_siteID      = "TESTSITE";
 
 // Roadsend SiteManager Functionality
-require("siteManager.inc");
+require(dirname(__FILE__) . "../../siteManager/siteManager.inc");
 
 // set base admin directory
-$adminDir = "/var/www/testSite/admin/";
+$adminDir = dirname(__FILE__) . "/";
 
 // this is a global defined to test teh GCS
 $testGlobal = 'FU';
 
 // load in site settings through SM_siteManager
-$SM_siteManager->loadSite($adminDir.'config/localConfig.xsm');
+$SM_siteManager->loadSite($adminDir . 'config/localConfig.xsm');
 
 // connect to database, using settings from localConfig.xsm
 $SM_siteManager->dbConnect();
 
 if ($SM_develState) {
-    if ((isset($_GET['SM_queryTrace']))&&($_GET['SM_queryTrace'] == 1)) {
+    if ((isset($_GET['SM_queryTrace'])) && ($_GET['SM_queryTrace'] == 1)) {
         $SM_siteManager->dbH->startQueryTrace();
     }
 }
@@ -62,15 +62,14 @@ $SM_siteManager->startSessions();
 // setup debug session?
 if ($SM_develState) {
     $SM_siteManager->addPersistent('SM_debug');
-    if ((isset($_GET['SM_debug']))&&($_GET['SM_debug'] == 1)) {
-        $SM_siteManager->sessionH->setPersistent('SM_debug',1);
-    }
-    else if (isset($_GET['SM_debug'])) {
-        $SM_siteManager->sessionH->setPersistent('SM_debug',0);
+    if ((isset($_GET['SM_debug'])) && ($_GET['SM_debug'] == 1)) {
+        $SM_siteManager->sessionH->setPersistent('SM_debug', 1);
+    } else if (isset($_GET['SM_debug'])) {
+        $SM_siteManager->sessionH->setPersistent('SM_debug', 0);
     }
     $SM_siteManager->addPersistent('SM_queryTrace');
-    if ((isset($_GET['SM_queryTrace']))&&($_GET['SM_queryTrace'] == 1)) {
-        $SM_siteManager->sessionH->setPersistent('SM_debug',1);
+    if ((isset($_GET['SM_queryTrace'])) && ($_GET['SM_queryTrace'] == 1)) {
+        $SM_siteManager->sessionH->setPersistent('SM_debug', 1);
     }
 }
 
@@ -78,7 +77,8 @@ if ($SM_develState) {
 // hook for grabbing extra member information
 // this is run when the member system loads the member information from the main table
 // (or from a persistent variable)
-function testMemberLoad(&$memberData) {
+function testMemberLoad(&$memberData)
+{
 
     // alter the main users memberData for other modules and code to see
     $memberData['testMemberLoad'] = 'ran testMemberLoad';
@@ -91,6 +91,3 @@ function testMemberLoad(&$memberData) {
     // after declaring $SM_siteManager as a global
 
 }
-
-
-?>
