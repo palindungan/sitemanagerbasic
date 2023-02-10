@@ -1,44 +1,73 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
 <html>
+
 <head>
-    <title><sm type="htmltitle" default="SiteManager Test Site"></title>
-        
+    <title>
+        <sm type="htmltitle" default="SiteManager">
+    </title>
+
     <STYLE>
-    .sf_optional { }
-    .sf_required { font-weight: bold; }
-    .sf_error { border: dotted 1px red; }
-    .sf_errorMsg { display: block; width: 50%; color: red; text-align: left; }
-    #testForm input { margin-left: 10px; }
-    #testForm div { padding: 4px; }
-    #birthDate_wrap label { border: solid 1px black; }
-    #birthDate { background-color: green; }
+        .sf_optional {}
+
+        .sf_required {
+            font-weight: bold;
+        }
+
+        .sf_error {
+            border: dotted 1px red;
+        }
+
+        .sf_errorMsg {
+            display: block;
+            width: 50%;
+            color: red;
+            text-align: left;
+        }
+
+        #testForm input {
+            margin-left: 10px;
+        }
+
+        #testForm div {
+            padding: 4px;
+        }
+
+        #birthDate_wrap label {
+            border: solid 1px black;
+        }
+
+        #birthDate {
+            background-color: green;
+        }
     </STYLE>
-    
+
 </head>
 
 <sm type='htmlbody'>
 
-<center><B><A HREF="index.php?@@sessionVars@@">SiteManager Functionality Test Site</A></B></CENTER><BR>
-<center><B>This is <sm type="module" name="smVersion"></B><br>
+    <center><B><A HREF="index.php?@@sessionVars@@">SiteManager Functionality</A></B></CENTER><BR>
+    <center><B>This is <sm type="module" name="smVersion"></B><br>
         <B>using <sm type="area" name="phpEngine"></b>
-</CENTER><BR>
+    </CENTER><BR>
 
-<table border="1" width="100%" height="100%" cellpadding="5" cellspacing="0">
-    <tr>
-        <td width="25%" cellpadding="0" cellspacing="0" align="left" valign="top">
-        <br><sm type="area" name="leftBar" priority="5">
-        </td>
-        <td width="75%" cellpadding="0" cellspacing="0" align="left" valign="top">
-        <br><sm type="area" name="main" priority="3">
-        </td>
-    </tr>
+    <table border="1" width="100%" height="100%" cellpadding="5" cellspacing="0">
+        <tr>
+            <td width="25%" cellpadding="0" cellspacing="0" align="left" valign="top">
+                <br>
+                <sm type="area" name="leftBar" priority="5">
+            </td>
+            <td width="75%" cellpadding="0" cellspacing="0" align="left" valign="top">
+                <br>
+                <sm type="area" name="main" priority="3">
+            </td>
+        </tr>
 
-<SM type="area" name="blankArea">
-<SM type="area" name="anotherBlankArea">
+        <SM type="area" name="blankArea">
+            <SM type="area" name="anotherBlankArea">
 
 
-</table>
-</body>
+    </table>
+    </body>
+
 </html>
-
