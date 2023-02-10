@@ -25,8 +25,7 @@
 
 // $SM_rootDir = '/var/www/user/siteManager/';
 
-// $SM_rootDir = '';   // when set, make sure it ends with a slash!
-$SM_rootDir = '/xampp/htdocs/sitemanagerbasic/siteManager/';
+$SM_rootDir = '';   // when set, make sure it ends with a slash!
 
 // -----------------------------------------------------------------------------
 // don't touch below here
@@ -81,5 +80,11 @@ require($SM_rootDir."lib/auth.inc");
 
 // ROOT SITEMANAGER CLASS
 $SM_siteManager = new SM_siteManagerRoot();
-$SM_siteManager->boot(); if ($SM_develState) { SM_debugLog("Initializing
-SiteManager..."); } ?>
+$SM_siteManager->boot();
+
+if ($SM_develState) {
+    SM_debugLog("Initializing SiteManager...");
+}
+
+
+?>

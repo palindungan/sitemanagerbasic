@@ -5,11 +5,10 @@
     Project: 
     using code from Roadsend PHP SiteManager (www.roadsend.com)
     
-    description   :
+    description   : directive script
 
     change history:
             
-                xx/xx/xx - script created by xxxx
                     
 */
 
@@ -20,10 +19,12 @@ require('../admin/common.inc');
 $layout1 = $SM_siteManager->rootTemplate("main.cpt");
 
 // load requested module
-$mod = $SM_siteManager->loadModule('item');
+$mod = $SM_siteManager->loadModule('test_debug');
 
 // add the module to the codePlate
 $layout1->addModule($mod, 'main');
 
 // finish display
 $SM_siteManager->completePage();
+
+?>

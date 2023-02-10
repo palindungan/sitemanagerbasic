@@ -19,7 +19,7 @@
 
 <sm type='htmlbody'>
 
-<center><B><A HREF="index.php?@@sessionVars@@">SiteManager Functionality</A></B></CENTER><BR>
+<center><B><A HREF="index.php?@@sessionVars@@">SiteManager Functionality Test Site</A></B></CENTER><BR>
 <center><B>This is <sm type="module" name="smVersion"></B><br>
         <B>using <sm type="area" name="phpEngine"></b>
 </CENTER><BR>

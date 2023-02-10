@@ -27,34 +27,34 @@
 
     change history:
             
-                xx/xx/xx - script created by xxx
+                05/15/01 - script created by weyrick
                     
 */
 
 // site name and ID. used for debug output and configuration
-$SM_siteName    = "HelloWorld";
-$SM_siteID      = "HELLW1";
+$SM_siteName    = "SiteManager Test Site";
+$SM_siteID      = "TESTSITE";
 
 // Roadsend SiteManager Functionality
-// require("siteManager.inc");
-require(dirname(__FILE__)."../../siteManager/siteManager.inc");
+require("siteManager.inc");
 
 // set base admin directory
-if(substr(PHP_OS, 0, 3) == "WIN") {
-    // windows
-    // $adminDir = "c:/project/admin/";
-    $adminDir = dirname(__FILE__)."/";
-}
-else {
-    // unix
-    $adminDir = "/var/www/html/project/admin/";
-}
+$adminDir = "/var/www/testSite/admin/";
+
+// this is a global defined to test teh GCS
+$testGlobal = 'FU';
 
 // load in site settings through SM_siteManager
 $SM_siteManager->loadSite($adminDir.'config/localConfig.xsm');
 
 // connect to database, using settings from localConfig.xsm
-//$SM_siteManager->dbConnect();
+$SM_siteManager->dbConnect();
+
+if ($SM_develState) {
+    if ((isset($_GET['SM_queryTrace']))&&($_GET['SM_queryTrace'] == 1)) {
+        $SM_siteManager->dbH->startQueryTrace();
+    }
+}
 
 // use sessions
 $SM_siteManager->startSessions();
@@ -68,18 +68,29 @@ if ($SM_develState) {
     else if (isset($_GET['SM_debug'])) {
         $SM_siteManager->sessionH->setPersistent('SM_debug',0);
     }
+    $SM_siteManager->addPersistent('SM_queryTrace');
+    if ((isset($_GET['SM_queryTrace']))&&($_GET['SM_queryTrace'] == 1)) {
+        $SM_siteManager->sessionH->setPersistent('SM_debug',1);
+    }
 }
 
-// add a variable to keep persistent
-//$SM_siteManager->addPersistent("varName");
 
-// authorization list for SM_basicAuth (auth.inc)
-//$authList   = array(
-//    "username1" => "password1",
-//    "username2" => "password2"
-//);
+// hook for grabbing extra member information
+// this is run when the member system loads the member information from the main table
+// (or from a persistent variable)
+function testMemberLoad(&$memberData) {
 
-// other included libraries
-//require($adminDir."functions.inc");
+    // alter the main users memberData for other modules and code to see
+    $memberData['testMemberLoad'] = 'ran testMemberLoad';
+
+    // could be looking up more info in a database, or whatever else...
+    // to access the SiteManager database settings, use
+
+    // $SM_siteManager->dbH
+
+    // after declaring $SM_siteManager as a global
+
+}
+
 
 ?>
