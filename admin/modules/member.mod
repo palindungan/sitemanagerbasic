@@ -120,7 +120,15 @@ class member extends testBase
         // verify data, if good, do sql or email, or whatever you'd like with your data
         if ($myForm->dataVerified()) {
             if ($this->getVar('action') == 'update') {
-                $this->update();
+                $data = array();
+                $data["idxNum"] = $myForm->getVar("idxNum");
+                $data["userName"] = $myForm->getVar("userName");
+                $data["passWord"] = $myForm->getVar("passWord");
+                $data["emailAddress"] = $myForm->getVar("emailAddress");
+                $data["firstName"] = $myForm->getVar("firstName");
+                $data["lastName"] = $myForm->getVar("lastName");
+                $data["dateCreated"] = $myForm->getVar("dateCreated");
+                $this->update($this->getVar('id'), $data);
             }
         } else {
             // show form
@@ -128,9 +136,24 @@ class member extends testBase
         }
     }
 
-    function update()
+    function update($id, $data)
     {
-        $this->say("<br>DATA UPDATED<br><br>");
+        $SQL = "
+            UPDATE members
+            SET 
+                idxNum = " . $data['idxNum'] . ",
+                userName = '" . $data['userName'] . "',
+                passWord = '" . $data['passWord'] . "',
+                emailAddress = '" . $data['emailAddress'] . "',
+                firstName = '" . $data['firstName'] . "',
+                lastName = '" . $data['lastName'] . "',
+                dateCreated = '" . $data['dateCreated'] . "'
+            WHERE idxNum = " . $id . "
+        ";
+        $query = $this->dbH->query($SQL);
+        SM_dbErrorCheck($query, $SQL);
+
+        header("Location: member.php");
     }
 
     function destroy()
