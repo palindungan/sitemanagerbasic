@@ -25,6 +25,7 @@ class home extends SM_module
      */
     function T_moduleConfig()
     {
+        $this->addInVar('layout', '');
     }
 
     /**
@@ -32,13 +33,13 @@ class home extends SM_module
      */
     function moduleThink()
     {
-        if ($this->getVar('form') == '' || $this->getVar('form') == 'index') {
+        if ($this->getVar('layout') == '' || $this->getVar('layout') == 'index') {
             $this->index();
         }
     }
 
     function index()
     {
-        $this->say('<h1 class="h3 mb-4 text-gray-800">View Home</h1>');
+        $this->say('<h1 class="h3 mb-4 text-gray-800">Home</h1>');
     }
 }

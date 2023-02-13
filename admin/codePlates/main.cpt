@@ -45,8 +45,8 @@ class main extends SM_codePlate
         }
 
         if ($menu == "" || $menu == "home") {
-            $tpt = $this->loadTemplate('home');
-            $this->addText($tpt->run(), 'pageContent');
+            $content = $this->loadModule('home');
+            $this->addText($content->run(), 'pageContent');
         }
     }
 }
