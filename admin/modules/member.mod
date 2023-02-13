@@ -38,6 +38,11 @@ class member extends testBase
             $this->testDesc  = 'Deskripsi.';
         }
 
+        if ($this->getVar('form') == 'create') {
+            $this->testTitle = 'Add Data';
+            $this->testDesc  = 'Deskripsi.';
+        }
+
         if ($this->getVar('form') == 'edit') {
             $this->testTitle = 'Edit Data';
             $this->testDesc  = 'Deskripsi.';
