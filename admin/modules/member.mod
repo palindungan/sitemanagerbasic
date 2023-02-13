@@ -113,7 +113,7 @@ class member extends testBase
         $item = $query->fetch();
         // $this->say("Nama : " . $item["userName"]);
 
-        $myForm = $this->form();
+        $myForm = $this->form($item);
         $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
         $myForm->directive['postScript'] = 'member.php?form=edit&id=' . $this->getVar('id') . '&action=update';
         $myForm->runForm(); // apply the form
@@ -146,8 +146,18 @@ class member extends testBase
     {
     }
 
-    function form($dataOld = array())
+    function form($item = array())
     {
+        if (empty($item)) {
+            $item['idxNum'] = '';
+            $item['firstName'] = '';
+            $item['lastName'] = '';
+            $item['emailAddress'] = '';
+            $item['userName'] = '';
+            $item['passWord'] = '';
+            $item['dateCreated'] = '';
+        }
+
         // create the form
         $myForm = $this->newSmartForm('myForm');
         $myForm->addDirective('badFormMessage', '
@@ -162,20 +172,20 @@ class member extends testBase
         $myForm->addDirective('cleanHiddens', true);
         $myForm->addDirective('dumpTemplate', true);
 
-        $idxNum = $myForm->add('idxNum', 'ID', 'text', true);
+        $idxNum = $myForm->add('idxNum', 'ID', 'text', true, $item['idxNum']);
         $idxNum->addFilter('number', 'Bad ID');
 
-        $myForm->add('firstName', 'First Name', 'text', false);
-        $myForm->add('lastName', 'Last Name', 'text', false);
+        $myForm->add('firstName', 'First Name', 'text', false, $item['firstName']);
+        $myForm->add('lastName', 'Last Name', 'text', false, $item['lastName']);
 
-        $emailAddress = $myForm->add('emailAddress', 'Email Address', 'text', false);
+        $emailAddress = $myForm->add('emailAddress', 'Email Address', 'text', false, $item['emailAddress']);
         $emailAddress->addFilter('email', 'Bad Email Address');
         $emailAddress->addDirective('entityAttributeClassTag', 'sfNormal1');
 
-        $myForm->add('userName', 'User Name', 'text', false);
-        $myForm->add('passWord', 'Password', 'text', false);
+        $myForm->add('userName', 'User Name', 'text', false, $item['userName']);
+        $myForm->add('passWord', 'Password', 'text', false, $item['passWord']);
 
-        $myForm->add('dateCreated', 'Date Create', 'text', false);
+        $myForm->add('dateCreated', 'Date Create', 'text', false, $item['dateCreated']);
 
         return $myForm;
     }
