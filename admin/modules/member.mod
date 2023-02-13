@@ -32,6 +32,7 @@ class member extends testBase
         // module config stuff here
         $this->addInVar('action', '');
         $this->addInVar('form', '');
+        $this->addInVar('id', 0);
 
         if ($this->getVar('form') == '' || $this->getVar('form') == 'index') {
             $this->testTitle = 'Data List Member';
@@ -55,7 +56,7 @@ class member extends testBase
     function moduleThink()
     {
         if ($this->getVar('action') == 'destroy') {
-            $this->destroy();
+            $this->destroy($this->getVar('id'));
         }
 
         if ($this->getVar('form') == '' || $this->getVar('form') == 'index') {
@@ -90,6 +91,7 @@ class member extends testBase
                     <td>' . $item['dateCreated'] . '</td>
                     <td>
                         <a href="member.php?form=edit&id=' . $item['idxNum'] . '">Ubah</a>
+                        <a href="member.php?action=destroy&id=' . $item['idxNum'] . '">Delete</a>
                     </td>
                 </tr>
             ';
@@ -163,8 +165,6 @@ class member extends testBase
 
     function edit()
     {
-        $this->addInVar('id', 0);
-
         $SQL = "SELECT * FROM members WHERE idxNum = " . $this->getVar('id') . " LIMIT 1";
         $query = $this->dbH->query($SQL);
         SM_dbErrorCheck($query, $SQL);
@@ -214,8 +214,11 @@ class member extends testBase
         header("Location: member.php");
     }
 
-    function destroy()
+    function destroy($id)
     {
+        $SQL = "DELETE FROM members WHERE idxNum = '$id'";
+        $rh = $this->dbH->query($SQL);
+        SM_dbErrorCheck($rh, $SQL);
     }
 
     function form($item = array())
