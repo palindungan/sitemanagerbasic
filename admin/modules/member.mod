@@ -24,9 +24,6 @@ $SM_siteManager->includeModule('testBase');
  */
 class member extends testBase
 {
-    var $testTitle = 'Anggota';
-    var $testDesc  = 'Deskripsi.';
-
     /**
      * run by base class after base runs moduleConfig()
      */
