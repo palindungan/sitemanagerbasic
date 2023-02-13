@@ -22,7 +22,7 @@ $SM_siteManager->includeModule('testBase');
 /**
  * extend testBase for testing sitemanager functionality
  */
-class test_members extends testBase
+class member extends testBase
 {
 
     /** title output at top of test module */

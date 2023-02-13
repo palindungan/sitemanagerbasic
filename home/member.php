@@ -19,12 +19,10 @@ require('../admin/common.inc');
 $layout1 = $SM_siteManager->rootTemplate("main.cpt");
 
 // load requested module
-$mod = $SM_siteManager->loadModule('test_members');
+$mod = $SM_siteManager->loadModule('member');
 
 // add the module to the codePlate
 $layout1->addModule($mod, 'main');
 
 // finish display
 $SM_siteManager->completePage();
-
-?>
