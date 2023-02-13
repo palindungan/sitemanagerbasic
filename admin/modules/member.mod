@@ -24,11 +24,7 @@ $SM_siteManager->includeModule('testBase');
  */
 class member extends testBase
 {
-
-    /** title output at top of test module */
-    var $testTitle = 'Daftar Anggota';
-
-    /** description */
+    var $testTitle = 'Anggota';
     var $testDesc  = 'Deskripsi.';
 
     /**
@@ -37,6 +33,18 @@ class member extends testBase
     function T_moduleConfig()
     {
         // module config stuff here
+        $this->addInVar('action', '');
+        $this->addInVar('form', '');
+
+        if ($this->getVar('form') == '' || $this->getVar('form') == 'index') {
+            $this->testTitle = 'Daftar Anggota';
+            $this->testDesc  = 'Deskripsi.';
+        }
+
+        if ($this->getVar('form') == 'edit') {
+            $this->testTitle = 'Edit Data';
+            $this->testDesc  = 'Deskripsi.';
+        }
     }
 
     /**
@@ -44,19 +52,43 @@ class member extends testBase
      */
     function moduleThink()
     {
+        if ($this->getVar('action') != '') {
+            if ($this->getVar('action') == 'update') {
+                $this->update();
+            }
+
+            if ($this->getVar('action') == 'destroy') {
+                $this->destroy();
+            }
+        } else {
+            if ($this->getVar('form') == '' || $this->getVar('form') == 'index') {
+                $this->index();
+            }
+
+            if ($this->getVar('form') == 'edit') {
+                $this->edit();
+            }
+        }
+    }
+
+    function index()
+    {
         $SQL = "SELECT * FROM members";
-        $rh = $this->dbH->query($SQL);
-        SM_dbErrorCheck($rh, $SQL);
+        $query = $this->dbH->query($SQL);
+        SM_dbErrorCheck($query, $SQL);
 
         $htmlTableRow = "";
-        while ($rr = $rh->fetch()) {
+        while ($item = $query->fetch()) {
             $htmlTableRow .= '
                 <tr>
-                    <td>' . $rr['userName'] . '</td>
-                    <td>' . $rr['emailAddress'] . '</td>
-                    <td>' . $rr['firstName'] . '</td>
-                    <td>' . $rr['lastName'] . '</td>
-                    <td>' . $rr['dateCreated'] . '</td>
+                    <td>' . $item['userName'] . '</td>
+                    <td>' . $item['emailAddress'] . '</td>
+                    <td>' . $item['firstName'] . '</td>
+                    <td>' . $item['lastName'] . '</td>
+                    <td>' . $item['dateCreated'] . '</td>
+                    <td>
+                        <a href="member.php?form=edit&id=' . $item['idxNum'] . '">Ubah</a>
+                    </td>
                 </tr>
             ';
         }
@@ -70,6 +102,7 @@ class member extends testBase
                         <td align="center"><b>firstName</b></td>
                         <td align="center"><b>lastName</b></td>
                         <td align="center"><b>dateCreated</b></td>
+                        <td align="center"><b>action</b></td>
                     </tr>
                     ' . $htmlTableRow . '
                 </tbody>
@@ -77,5 +110,17 @@ class member extends testBase
         ';
 
         $this->say($htmlTable);
+    }
+
+    function edit()
+    {
+    }
+
+    function update()
+    {
+    }
+
+    function destroy()
+    {
     }
 }
