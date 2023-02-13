@@ -103,6 +103,49 @@ class member extends testBase
         $this->say($htmlTable);
     }
 
+    function edit()
+    {
+        $this->addInVar('id', 0);
+
+        $SQL = "SELECT * FROM members WHERE idxNum = " . $this->getVar('id') . " LIMIT 1";
+        $query = $this->dbH->query($SQL);
+        SM_dbErrorCheck($query, $SQL);
+        $item = $query->fetch();
+        // $this->say("Nama : " . $item["userName"]);
+
+        $myForm = $this->form();
+        $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
+        $myForm->directive['postScript'] = 'member.php?form=edit&action=update';
+        $myForm->runForm(); // apply the form
+
+        // verify data, if good, do sql or email, or whatever you'd like with your data
+        if ($myForm->dataVerified()) {
+            $this->say("data was verified:<br><br>");
+
+            $this->say($myForm->dumpFormVars());
+
+            $this->say("<br>variables from form:<br><br>");
+            $this->saybr(join("<br>", $myForm->getVarList()));
+
+            if ($this->getVar('action') == 'update') {
+                $this->update();
+            }
+        } else {
+            // fall through, data wasn't verified, show form
+            // output the form 
+            $this->say($myForm->output('Go', array('testHidden2' => 'testval')));
+        }
+    }
+
+    function update()
+    {
+        $this->say("<br>DATA UPDATED<br><br>");
+    }
+
+    function destroy()
+    {
+    }
+
     function form()
     {
         // create the form
@@ -276,48 +319,5 @@ class member extends testBase
         } // load xml
 
         return $myForm;
-    }
-
-    function edit()
-    {
-        $this->addInVar('id', 0);
-
-        $SQL = "SELECT * FROM members WHERE idxNum = " . $this->getVar('id') . " LIMIT 1";
-        $query = $this->dbH->query($SQL);
-        SM_dbErrorCheck($query, $SQL);
-        $item = $query->fetch();
-        // $this->say("Nama : " . $item["userName"]);
-
-        $myForm = $this->form();
-        $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
-        $myForm->directive['postScript'] = 'member.php?form=edit&action=update';
-        $myForm->runForm(); // apply the form
-
-        // verify data, if good, do sql or email, or whatever you'd like with your data
-        if ($myForm->dataVerified()) {
-            $this->say("data was verified:<br><br>");
-
-            $this->say($myForm->dumpFormVars());
-
-            $this->say("<br>variables from form:<br><br>");
-            $this->saybr(join("<br>", $myForm->getVarList()));
-
-            if ($this->getVar('action') == 'update') {
-                $this->update();
-            }
-        } else {
-            // fall through, data wasn't verified, show form
-            // output the form 
-            $this->say($myForm->output('Go', array('testHidden2' => 'testval')));
-        }
-    }
-
-    function update()
-    {
-        $this->say("<br>DATA UPDATED<br><br>");
-    }
-
-    function destroy()
-    {
     }
 }
