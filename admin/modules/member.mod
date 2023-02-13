@@ -219,6 +219,8 @@ class member extends testBase
         $SQL = "DELETE FROM members WHERE idxNum = '$id'";
         $rh = $this->dbH->query($SQL);
         SM_dbErrorCheck($rh, $SQL);
+
+        header("Location: member.php");
     }
 
     function form($item = array())
