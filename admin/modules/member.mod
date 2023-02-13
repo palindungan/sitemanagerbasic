@@ -57,6 +57,10 @@ class member extends testBase
             $this->index();
         }
 
+        if ($this->getVar('form') == 'create') {
+            $this->create();
+        }
+
         if ($this->getVar('form') == 'edit') {
             $this->edit();
         }
@@ -67,6 +71,8 @@ class member extends testBase
         $SQL = "SELECT * FROM members";
         $query = $this->dbH->query($SQL);
         SM_dbErrorCheck($query, $SQL);
+
+        $this->say("<a href='member.php?form=create'>Create</a><br>");
 
         $htmlTableRow = "";
         while ($item = $query->fetch()) {
@@ -101,6 +107,53 @@ class member extends testBase
         ';
 
         $this->say($htmlTable);
+    }
+
+    function create()
+    {
+        $myForm = $this->form();
+        $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
+        $myForm->directive['postScript'] = 'member.php?form=create&action=store';
+        $myForm->runForm(); // apply the form
+
+        // verify data, if good, do sql or email, or whatever you'd like with your data
+        if ($myForm->dataVerified()) {
+            if ($this->getVar('action') == 'store') {
+                $data = array();
+                $data["idxNum"] = $myForm->getVar("idxNum");
+                $data["userName"] = $myForm->getVar("userName");
+                $data["passWord"] = $myForm->getVar("passWord");
+                $data["emailAddress"] = $myForm->getVar("emailAddress");
+                $data["firstName"] = $myForm->getVar("firstName");
+                $data["lastName"] = $myForm->getVar("lastName");
+                $data["dateCreated"] = $myForm->getVar("dateCreated");
+                $this->store($data);
+            }
+        } else {
+            // show form
+            $this->say($myForm->output('Submit', array('testHidden2' => 'testval')));
+        }
+    }
+
+    function store($data)
+    {
+        $SQL = "
+            INSERT INTO members
+            (idxNum, userName, passWord, emailAddress, firstName, lastName, dateCreated)
+            VALUES (
+                " . $data['idxNum'] . ",
+                '" . $data['userName'] . "',
+                '" . $data['passWord'] . "',
+                '" . $data['emailAddress'] . "',
+                '" . $data['firstName'] . "',
+                '" . $data['lastName'] . "',
+                '" . $data['dateCreated'] . "'
+            )
+        ";
+        $query = $this->dbH->query($SQL);
+        SM_dbErrorCheck($query, $SQL);
+
+        header("Location: member.php");
     }
 
     function edit()
