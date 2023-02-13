@@ -162,13 +162,11 @@ class member extends testBase
         $myForm->addDirective('cleanHiddens', true);
         $myForm->addDirective('dumpTemplate', true);
 
-        // some simpler examples
-        $myForm->add('firstName', 'First Name', 'text', false);
-        $myForm->add('lastName', 'Last Name', 'text', false);
+        $idxNum = $myForm->add('idxNum', 'ID', 'text');
+        $idxNum->addFilter('number');
 
-        // price with filters
-        $price = $myForm->add('price', 'Price', 'text');
-        $price->addFilter('number', 'Bad price');
+        $myForm->add('userName', 'User Name', 'text');
+        $myForm->add('passWord', 'Password', 'text');
 
         return $myForm;
     }
