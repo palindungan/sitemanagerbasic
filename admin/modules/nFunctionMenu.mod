@@ -41,7 +41,7 @@ class nFunctionMenu extends SM_module
 
         $item = $menu->addItem('Aplikasi');
         $item->addLinkItem('Home', 'index.php');
-        $item->addLinkItem('Anggota', 'member.php');
+        $item->addLinkItem('Member', 'member.php');
 
         // output menu
         $this->say($menu->run());

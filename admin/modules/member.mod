@@ -34,7 +34,7 @@ class member extends testBase
         $this->addInVar('form', '');
 
         if ($this->getVar('form') == '' || $this->getVar('form') == 'index') {
-            $this->testTitle = 'Daftar Anggota';
+            $this->testTitle = 'Data List Member';
             $this->testDesc  = 'Deskripsi.';
         }
 
@@ -115,7 +115,7 @@ class member extends testBase
 
         $myForm = $this->form();
         $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
-        $myForm->directive['postScript'] = 'member.php?form=edit&action=update';
+        $myForm->directive['postScript'] = 'member.php?form=edit&id=' . $this->getVar('id') . '&action=update';
         $myForm->runForm(); // apply the form
 
         // verify data, if good, do sql or email, or whatever you'd like with your data
@@ -146,7 +146,7 @@ class member extends testBase
     {
     }
 
-    function form()
+    function form($dataOld = array())
     {
         // create the form
         $myForm = $this->newSmartForm('myForm');
@@ -162,11 +162,20 @@ class member extends testBase
         $myForm->addDirective('cleanHiddens', true);
         $myForm->addDirective('dumpTemplate', true);
 
-        $idxNum = $myForm->add('idxNum', 'ID', 'text');
-        $idxNum->addFilter('number');
+        $idxNum = $myForm->add('idxNum', 'ID', 'text', true);
+        $idxNum->addFilter('number', 'Bad ID');
 
-        $myForm->add('userName', 'User Name', 'text');
-        $myForm->add('passWord', 'Password', 'text');
+        $myForm->add('firstName', 'First Name', 'text', false);
+        $myForm->add('lastName', 'Last Name', 'text', false);
+
+        $emailAddress = $myForm->add('emailAddress', 'Email Address', 'text', false);
+        $emailAddress->addFilter('email', 'Bad Email Address');
+        $emailAddress->addDirective('entityAttributeClassTag', 'sfNormal1');
+
+        $myForm->add('userName', 'User Name', 'text', false);
+        $myForm->add('passWord', 'Password', 'text', false);
+
+        $myForm->add('dateCreated', 'Date Create', 'text', false);
 
         return $myForm;
     }
