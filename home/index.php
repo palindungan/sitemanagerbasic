@@ -18,15 +18,11 @@ require('../admin/common.inc');
 // create root template. notice, returns a reference!!
 $layout1 = $SM_siteManager->rootTemplate("main.cpt");
 
-$intro  = '<b>Home</b>';
+// load requested module
+$mod = $SM_siteManager->loadModule('home');
 
-if (defined('ROADSEND_PCC')) {
-    $stats = re_memo_stats();
-    $intro .= "<br><br>Roadsend AST Cache Stats:<br>Hits: {$stats['hits']}<br>Misses: {$stats['misses']}<br>Resets: {$stats['resets']}<br>";
-}
-
-// add intro
-$layout1->addText($intro, 'main');
+// add the module to the codePlate
+$layout1->addModule($mod, 'main');
 
 // finish display
 $SM_siteManager->completePage();
