@@ -114,6 +114,9 @@ class member extends testBase
         // create the form
         $myForm = $this->newSmartForm('testForm');
 
+        $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
+        $myForm->directive['postScript'] = 'member.php?form=edit';
+
         $myForm->addDirective('badFormMessage', '<center><b><br>There is a problem with the form input. Please correct your input and try again.</b><br><br></center>');
 
         if ($this->getVar('loadXML') != 1) {
@@ -323,7 +326,6 @@ class member extends testBase
             $this->saybr('new right:');
             $this->saybr($p->getNewRight());
         } else {
-
             //
             // fall through, data wasn't verified, show form
             //
@@ -344,6 +346,7 @@ class member extends testBase
         $item = $query->fetch();
 
         // $this->say("Nama : " . $item["userName"]);
+        $this->form();
     }
 
     function update()
