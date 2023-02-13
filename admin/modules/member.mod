@@ -111,7 +111,6 @@ class member extends testBase
         $query = $this->dbH->query($SQL);
         SM_dbErrorCheck($query, $SQL);
         $item = $query->fetch();
-        // $this->say("Nama : " . $item["userName"]);
 
         $myForm = $this->form($item);
         $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
@@ -120,19 +119,11 @@ class member extends testBase
 
         // verify data, if good, do sql or email, or whatever you'd like with your data
         if ($myForm->dataVerified()) {
-            $this->say("data was verified:<br><br>");
-
-            $this->say($myForm->dumpFormVars());
-
-            $this->say("<br>variables from form:<br><br>");
-            $this->saybr(join("<br>", $myForm->getVarList()));
-
             if ($this->getVar('action') == 'update') {
                 $this->update();
             }
         } else {
-            // fall through, data wasn't verified, show form
-            // output the form 
+            // show form
             $this->say($myForm->output('Submit', array('testHidden2' => 'testval')));
         }
     }
