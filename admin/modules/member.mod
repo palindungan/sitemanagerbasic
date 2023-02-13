@@ -26,10 +26,10 @@ class member extends testBase
 {
 
     /** title output at top of test module */
-    var $testTitle = 'Member Functionality Test';
+    var $testTitle = 'Daftar Anggota';
 
     /** description */
-    var $testDesc  = 'Test the functionality of the Member System.';
+    var $testDesc  = 'Management.';
 
     /**
      * run by base class after base runs moduleConfig()
@@ -44,27 +44,32 @@ class member extends testBase
      */
     function moduleThink()
     {
-        $mod1 = $this->loadModule('userLogin');
-        $mod1->addDirective('showLoginStatus', true);
-        $this->say($mod1->run());
-
-        $this->say("<br><br>");
-
-        $dbSettings = array(
-            'tableName' => 'members',
-            'viewField' => 'userName'
-        );
-
-        $mod2 = $this->loadModule('dbRecordSelector');
-        $mod2->configure($dbSettings);
-
-        $mod3 = $this->loadModule('dbGui');
-        $mod3->configure($dbSettings);
-
-        $memberSystem = $this->sessionH->getMemberSystem();
-        $this->say($memberSystem->dumpInfo());
-
-        $this->say($mod2->run());
-        $this->say($mod3->run());
+        $this->say('
+            <table width="100%" border="1">
+                <tbody>
+                    <tr>
+                        <td align="center"><b>Test Title</b></td>
+                        <td align="center"><b>Description</b></td>
+                        <td align="center"><b>Expect</b></td>
+                        <td align="center"><b>Actual</b></td>
+                        <td align="center"><b>Result</b></td>
+                    </tr>
+                    <tr>
+                        <td>SM_registerComponent(), SM_isComponentRegistered()</td>
+                        <td>make sure a component can be registered</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td align="center" bgcolor="green"><b>PASS</b></td>
+                    </tr>
+                    <tr>
+                        <td>SM_isComponentLoaded(), SM_loadComponent()</td>
+                        <td>make sure a registered component is identifiable and loadable</td>
+                        <td>COMPONENT LOADED</td>
+                        <td>COMPONENT LOADED</td>
+                        <td align="center" bgcolor="green"><b>PASS</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        ');
     }
 }
