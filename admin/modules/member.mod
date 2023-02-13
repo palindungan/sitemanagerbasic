@@ -49,16 +49,16 @@ class member extends testBase
      */
     function moduleThink()
     {
+        if ($this->getVar('action') == 'destroy') {
+            $this->destroy();
+        }
+
         if ($this->getVar('form') == '' || $this->getVar('form') == 'index') {
             $this->index();
         }
 
         if ($this->getVar('form') == 'edit') {
             $this->edit();
-        }
-
-        if ($this->getVar('action') == 'destroy') {
-            $this->destroy();
         }
     }
 
@@ -106,8 +106,16 @@ class member extends testBase
     function form()
     {
         // create the form
-        $myForm = $this->newSmartForm('testForm');
-        $myForm->addDirective('badFormMessage', '<center><b><br>There is a problem with the form input. Please correct your input and try again.</b><br><br></center>');
+        $myForm = $this->newSmartForm('myForm');
+        $myForm->addDirective('badFormMessage', '
+            <center>
+                <b>
+                    <br>
+                    There is a problem with the form input. Please correct your input and try again.
+                </b>
+                <br><br>
+            </center>
+        ');
 
         if ($this->getVar('loadXML') != 1) {
             $myForm->addDirective('cleanHiddens', true);
