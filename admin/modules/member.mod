@@ -29,7 +29,7 @@ class member extends testBase
     var $testTitle = 'Daftar Anggota';
 
     /** description */
-    var $testDesc  = 'Management.';
+    var $testDesc  = 'Deskripsi.';
 
     /**
      * run by base class after base runs moduleConfig()
@@ -44,32 +44,38 @@ class member extends testBase
      */
     function moduleThink()
     {
-        $this->say('
+        $SQL = "SELECT * FROM members";
+        $rh = $this->dbH->query($SQL);
+        SM_dbErrorCheck($rh, $SQL);
+
+        $htmlTableRow = "";
+        while ($rr = $rh->fetch()) {
+            $htmlTableRow .= '
+                <tr>
+                    <td>' . $rr['userName'] . '</td>
+                    <td>' . $rr['emailAddress'] . '</td>
+                    <td>' . $rr['firstName'] . '</td>
+                    <td>' . $rr['lastName'] . '</td>
+                    <td>' . $rr['dateCreated'] . '</td>
+                </tr>
+            ';
+        }
+
+        $htmlTable = '
             <table width="100%" border="1">
                 <tbody>
                     <tr>
-                        <td align="center"><b>Test Title</b></td>
-                        <td align="center"><b>Description</b></td>
-                        <td align="center"><b>Expect</b></td>
-                        <td align="center"><b>Actual</b></td>
-                        <td align="center"><b>Result</b></td>
+                        <td align="center"><b>userName</b></td>
+                        <td align="center"><b>emailAddress</b></td>
+                        <td align="center"><b>firstName</b></td>
+                        <td align="center"><b>lastName</b></td>
+                        <td align="center"><b>dateCreated</b></td>
                     </tr>
-                    <tr>
-                        <td>SM_registerComponent(), SM_isComponentRegistered()</td>
-                        <td>make sure a component can be registered</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td align="center" bgcolor="green"><b>PASS</b></td>
-                    </tr>
-                    <tr>
-                        <td>SM_isComponentLoaded(), SM_loadComponent()</td>
-                        <td>make sure a registered component is identifiable and loadable</td>
-                        <td>COMPONENT LOADED</td>
-                        <td>COMPONENT LOADED</td>
-                        <td align="center" bgcolor="green"><b>PASS</b></td>
-                    </tr>
+                    ' . $htmlTableRow . '
                 </tbody>
             </table>
-        ');
+        ';
+
+        $this->say($htmlTable);
     }
 }
