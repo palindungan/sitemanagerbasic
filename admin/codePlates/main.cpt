@@ -30,7 +30,7 @@ class main extends SM_codePlate
         $this->setMyTemplate('main');
     }
 
-    /**     
+    /**
      *
      * think code for codePlate. run after codePlateConfig()
      *
