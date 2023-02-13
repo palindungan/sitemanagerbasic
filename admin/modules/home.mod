@@ -39,6 +39,6 @@ class home extends SM_module
 
     function index()
     {
-        $this->say("<b>Home</b>");
+        $this->say('<h1 class="h3 mb-4 text-gray-800">View Home</h1>');
     }
 }
