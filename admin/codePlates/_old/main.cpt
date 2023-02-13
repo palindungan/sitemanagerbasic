@@ -27,7 +27,7 @@ class main extends SM_codePlate
      */
     function codePlateConfig()
     {
-        $this->addInVar('menu', '');
+        $this->setMyTemplate('main');
     }
 
     /**
@@ -37,11 +37,16 @@ class main extends SM_codePlate
      */
     function codePlateThink()
     {
-        $menu = $this->getVar('menu');
-        if ($menu == "login") {
-            $this->setMyTemplate('login');
-        } else {
-            $this->setMyTemplate('main');
-        }
+        // create a new module. notice, returns a reference!!
+        $this->loadModule('nFunctionMenu', 'leftBar');
+
+        // for test, set priority of area main to 20 (template says 3)
+        $this->setAreaPriority('main', 20);
+
+        if (defined("ROADSEND_PCC"))
+            $verLine = "Roadsend PHP " . PCC_VERSION . ' on ' . PHP_OS;
+        else
+            $verLine = "PHP v" . PHP_VERSION . ' on ' . PHP_OS;
+        $this->addText($verLine, 'phpEngine');
     }
 }
