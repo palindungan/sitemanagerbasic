@@ -95,4 +95,35 @@ class query extends SM_module
         $query = $this->dbH->query($SQL);
         SM_dbErrorCheck($query, $SQL);
     }
+
+    function update($param = array())
+    {
+        $myForm = $param["myForm"];
+
+        $data = array();
+        $data["idxNum"] = $myForm->getVar("idxNum");
+        $data["uID"] = $myForm->getVar("uID");
+        $data["userName"] = $myForm->getVar("userName");
+        $data["passWord"] = $myForm->getVar("passWord");
+        $data["emailAddress"] = $myForm->getVar("emailAddress");
+        $data["firstName"] = $myForm->getVar("firstName");
+        $data["lastName"] = $myForm->getVar("lastName");
+        $data["dateCreated"] = $myForm->getVar("dateCreated");
+
+        $SQL = "
+            UPDATE members
+            SET 
+                idxNum = " . $data['idxNum'] . ",
+                uID = '" . $data['uID'] . "',
+                userName = '" . $data['userName'] . "',
+                passWord = '" . $data['passWord'] . "',
+                emailAddress = '" . $data['emailAddress'] . "',
+                firstName = '" . $data['firstName'] . "',
+                lastName = '" . $data['lastName'] . "',
+                dateCreated = '" . $data['dateCreated'] . "'
+            WHERE idxNum = " . $param["id"] . "
+        ";
+        $query = $this->dbH->query($SQL);
+        SM_dbErrorCheck($query, $SQL);
+    }
 }

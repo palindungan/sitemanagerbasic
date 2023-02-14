@@ -127,16 +127,7 @@ class module extends SM_module
         // verify data, if good, do sql or email, or whatever you'd like with your data
         if ($myForm->dataVerified()) {
             if ($action == 'update') {
-                $data = array();
-                $data["idxNum"] = $myForm->getVar("idxNum");
-                $data["uID"] = $myForm->getVar("uID");
-                $data["userName"] = $myForm->getVar("userName");
-                $data["passWord"] = $myForm->getVar("passWord");
-                $data["emailAddress"] = $myForm->getVar("emailAddress");
-                $data["firstName"] = $myForm->getVar("firstName");
-                $data["lastName"] = $myForm->getVar("lastName");
-                $data["dateCreated"] = $myForm->getVar("dateCreated");
-                $this->update($id, $data);
+                $this->update($id, $myForm);
             }
         } else {
             // show form
@@ -146,24 +137,12 @@ class module extends SM_module
         }
     }
 
-    function update($id, $data)
+    function update($id, $myForm)
     {
-        $SQL = "
-            UPDATE members
-            SET 
-                idxNum = " . $data['idxNum'] . ",
-                uID = '" . $data['uID'] . "',
-                userName = '" . $data['userName'] . "',
-                passWord = '" . $data['passWord'] . "',
-                emailAddress = '" . $data['emailAddress'] . "',
-                firstName = '" . $data['firstName'] . "',
-                lastName = '" . $data['lastName'] . "',
-                dateCreated = '" . $data['dateCreated'] . "'
-            WHERE idxNum = " . $id . "
-        ";
-        $query = $this->dbH->query($SQL);
-        SM_dbErrorCheck($query, $SQL);
-
+        $this->query->update([
+            "id" => $id,
+            "myForm" => $myForm
+        ]);
         header("Location: index.php?menu=member");
     }
 
