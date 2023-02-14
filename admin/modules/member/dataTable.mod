@@ -3,6 +3,13 @@ require_once "query.mod";
 
 class dataTable extends SM_module
 {
+    public $query;
+
+    function __construct()
+    {
+        $this->query = new query();
+    }
+
     function init()
     {
         $param['limit'] = $_POST['length'];
@@ -11,9 +18,8 @@ class dataTable extends SM_module
         $param['search'] = $_GET['search']['value'];
         $draw = $_GET['draw'];
 
-        $query = new query();
-        $data_query = $query->getData($param);
-        $data_query_count = $query->getData($param + ["select" => "count(members.idxNum) AS count"]);
+        $data_query = $this->query->getData($param);
+        $data_query_count = $this->query->getData($param + ["select" => "count(members.idxNum) AS count"]);
         if ($data_query && $data_query_count->fetch()['count'] > 0) {
             $data = $data_query->fetchAll();
         } else {
@@ -24,7 +30,7 @@ class dataTable extends SM_module
             $param2['search'] = $param['search'];
             $param2['select'] = 'count(members.idxNum) AS count';
 
-            $data_query2_count = $query->getData($param2);
+            $data_query2_count = $this->query->getData($param2);
 
             $totaldata = count($data);
             $datacount = $data_query2_count->fetch()['count'];

@@ -5,7 +5,7 @@ class query extends SM_module
     function getData($param = array())
     {
         $get_by_search = "";
-        if (isset($param['search']) && !empty($param['search'])) {
+        if (isset($param['search']) && !is_null($param['search'])) {
             $get_by_search =
                 " " .
                 "AND (
@@ -22,22 +22,29 @@ class query extends SM_module
         }
 
         $limit = "";
-        if (isset($param['limit']) && !empty($param['limit'])) {
+        if (isset($param['limit']) && !is_null($param['limit'])) {
             $limit =
                 " " . "AND LIMIT " . $param['limit'] . " ";
         }
 
         $offset = "";
-        if (isset($param['offset']) && !empty($param['offset'])) {
+        if (isset($param['offset']) && !is_null($param['offset'])) {
             $offset =
                 " " . "AND OFFSET " . $param['offset'] . " ";
         }
 
         $select = " " . "members.*, members.idxNum AS action" . " ";
-        if (isset($param['select']) && !empty($param['select'])) {
+        if (isset($param['select']) && !is_null($param['select'])) {
             $select =
                 " " . $param['select'] . " ";
         }
+
+        // start of custom
+        $get_by_idxNum = "";
+        if (isset($param["get_by_idxNum"]) && !is_null($param["get_by_idxNum"])) {
+            $get_by_idxNum = " " . "AND members.idxNum = " . $param["get_by_idxNum"] . " ";
+        }
+        // end of custom
 
         $SQL = "
             SELECT
@@ -48,6 +55,7 @@ class query extends SM_module
                 " . $get_by_search . "
                 " . $limit . "
                 " . $offset . "
+                " . $get_by_idxNum . "
         ";
 
         $query = $this->dbH->query($SQL);
