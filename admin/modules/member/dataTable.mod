@@ -14,13 +14,14 @@ class dataTable extends SM_module
     {
         $param['limit'] = $_GET['length'];
         $param['offset'] = $_GET['start'];
-
         $param['search'] = $_GET['search']['value'];
+
         $draw = $_GET['draw'];
 
         $data_query = $this->query->getData($param);
-        $data_query_count = $this->query->getData($param + ["select" => "count(members.idxNum) AS count"]);
-        if ($data_query && $data_query_count->fetch()['count'] > 0) {
+        $data_query_count = $this->query->getData($param + ["select" => "count(members.idxNum) AS countAll"]);
+        // die(json_encode($data_query_count));
+        if ($data_query && $data_query_count->fetch()['countAll'] > 0) {
             $data = $data_query->fetchAll();
         } else {
             $data = false;
@@ -28,12 +29,12 @@ class dataTable extends SM_module
 
         if ($data) {
             $param2['search'] = $param['search'];
-            $param2['select'] = 'count(members.idxNum) AS count';
+            $param2['select'] = 'count(members.idxNum) AS countAll';
 
             $data_query2_count = $this->query->getData($param2);
 
             $totaldata = count($data);
-            $datacount = $data_query2_count->fetch()['count'];
+            $datacount = $data_query2_count->fetch()['countAll'];
         } else {
             $totaldata = 0;
             $datacount = 0;

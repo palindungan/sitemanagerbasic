@@ -5,7 +5,7 @@ class query extends SM_module
     function getData($param = [])
     {
         $get_by_search = "";
-        if (isset($param['search']) && !is_null($param['search'])) {
+        if (isset($param['search']) && !empty($param['search'])) {
             $get_by_search =
                 " " .
                 "AND (
@@ -22,27 +22,32 @@ class query extends SM_module
         }
 
         $limit = "";
-        if (isset($param['limit']) && !is_null($param['limit'])) {
+        if (isset($param['limit']) && !empty($param['limit'])) {
             $limit =
-                " " . "AND LIMIT " . $param['limit'] . " ";
+                " " . "LIMIT " . $param['limit'] . " ";
         }
 
         $offset = "";
-        if (isset($param['offset']) && !is_null($param['offset'])) {
+        if (isset($param['offset']) && !empty($param['offset'])) {
             $offset =
-                " " . "AND OFFSET " . $param['offset'] . " ";
+                " " . "OFFSET " . $param['offset'] . " ";
         }
 
         $select = " " . "members.*, members.idxNum AS action" . " ";
-        if (isset($param['select']) && !is_null($param['select'])) {
+        if (isset($param['select']) && !empty($param['select'])) {
             $select =
                 " " . $param['select'] . " ";
         }
 
         // start of custom
         $get_by_idxNum = "";
-        if (isset($param["get_by_idxNum"]) && !is_null($param["get_by_idxNum"])) {
+        if (isset($param["get_by_idxNum"]) && !empty($param["get_by_idxNum"])) {
             $get_by_idxNum = " " . "AND members.idxNum = " . $param["get_by_idxNum"] . " ";
+        }
+
+        $group_by = "";
+        if (isset($param["group_by"]) && !empty($param["group_by"])) {
+            $group_by = " " . "GROUP BY " . $param["group_by"] . " ";
         }
         // end of custom
 
@@ -52,10 +57,11 @@ class query extends SM_module
             FROM members
             WHERE
                 members.idxNum > 0
+                " . $get_by_idxNum . "
                 " . $get_by_search . "
+                " . $group_by . "
                 " . $limit . "
                 " . $offset . "
-                " . $get_by_idxNum . "
         ";
 
         $query = $this->dbH->query($SQL);
