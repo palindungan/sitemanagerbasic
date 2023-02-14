@@ -26,12 +26,12 @@ class dataTable extends SM_module
 
         if ($data) {
             $param2['search'] = $param['search'];
-            $param2['select'] = 'COUNT(members.idxNum) AS countAll';
+            $param2['select'] = 'COUNT(members.idxNum) AS countData';
 
             $data_query2_count = $this->query->getData($param2);
 
             $totaldata = count($data);
-            $datacount = $data_query2_count->fetch()['countAll'];
+            $datacount = $data_query2_count->fetch()['countData'];
         } else {
             $totaldata = 0;
             $datacount = 0;
