@@ -13,6 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <SM type="area" name="tableRow"></SM>
                 </tbody>
             </table>
         </div>

@@ -1,4 +1,6 @@
 <?php
+require_once "dataTable.mod";
+require_once "query.mod";
 
 /*********************************************************************
  *  Roadsend SiteManager
@@ -42,8 +44,10 @@ class module extends SM_module
     {
         $pageContent = $this->loadTemplate('../admin/templates/member/index');
 
-        $dataTable = $this->loadTemplate('../admin/templates/member/table');
-        $pageContent->addTemplate($dataTable, 'dataTable');
+        $dataTableClass = new dataTable();
+        $dataTableTemplate = $this->loadTemplate('../admin/templates/member/table');
+        $dataTableTemplate->addText($dataTableClass->init(), "tableRow");
+        $pageContent->addTemplate($dataTableTemplate, 'dataTable');
 
         $this->say($pageContent->run());
     }
