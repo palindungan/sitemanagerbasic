@@ -42,12 +42,12 @@ class main extends SM_codePlate
             $this->setMyTemplate('login');
         } else {
             $this->setMyTemplate('main');
-        }
 
-        $content = $this->loadModule('home');
+            $content = $this->loadModule('home');
 
-        if ($menu == "member") {
-            $content = $this->loadModule('../admin/modules/member/module');
+            if ($menu == "member") {
+                $content = $this->loadModule('../admin/modules/member/module');
+            }
         }
 
         $this->addText($content->run(), 'pageContent');
