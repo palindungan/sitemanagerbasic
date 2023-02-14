@@ -12,8 +12,8 @@ class dataTable extends SM_module
 
     function init()
     {
-        $param['limit'] = $_POST['length'];
-        $param['offset'] = $_POST['start'];
+        $param['limit'] = $_GET['length'];
+        $param['offset'] = $_GET['start'];
 
         $param['search'] = $_GET['search']['value'];
         $draw = $_GET['draw'];
