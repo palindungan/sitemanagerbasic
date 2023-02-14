@@ -148,14 +148,11 @@ class module extends SM_module
 
     function destroy($id)
     {
-        $SQL = "DELETE FROM members WHERE idxNum = '$id'";
-        $rh = $this->dbH->query($SQL);
-        SM_dbErrorCheck($rh, $SQL);
-
+        $this->query->destroy(["id" => $id,]);
         header("Location: index.php?menu=member");
     }
 
-    function form($item = array())
+    function form($item = [])
     {
         if (empty($item)) {
             $item['idxNum'] = '';

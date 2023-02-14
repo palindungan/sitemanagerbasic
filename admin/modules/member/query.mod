@@ -2,7 +2,7 @@
 
 class query extends SM_module
 {
-    function getData($param = array())
+    function getData($param = [])
     {
         $get_by_search = "";
         if (isset($param['search']) && !is_null($param['search'])) {
@@ -64,11 +64,11 @@ class query extends SM_module
         return $query;
     }
 
-    function store($param = array())
+    function store($param = [])
     {
         $myForm = $param["myForm"];
 
-        $data = array();
+        $data = [];
         $data["idxNum"] = $myForm->getVar("idxNum");
         $data["uID"] = $myForm->getVar("uID");
         $data["userName"] = $myForm->getVar("userName");
@@ -96,11 +96,11 @@ class query extends SM_module
         SM_dbErrorCheck($query, $SQL);
     }
 
-    function update($param = array())
+    function update($param = [])
     {
         $myForm = $param["myForm"];
 
-        $data = array();
+        $data = [];
         $data["idxNum"] = $myForm->getVar("idxNum");
         $data["uID"] = $myForm->getVar("uID");
         $data["userName"] = $myForm->getVar("userName");
@@ -125,5 +125,12 @@ class query extends SM_module
         ";
         $query = $this->dbH->query($SQL);
         SM_dbErrorCheck($query, $SQL);
+    }
+
+    function destroy($param = [])
+    {
+        $SQL = "DELETE FROM members WHERE idxNum = '" . $param["id"] . "'";
+        $rh = $this->dbH->query($SQL);
+        SM_dbErrorCheck($rh, $SQL);
     }
 }
