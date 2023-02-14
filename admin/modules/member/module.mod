@@ -61,20 +61,16 @@ class module extends SM_module
 
         // get data datatable
         if ($action == 'dataTable') {
+            $dataTableClass = new dataTable();
             header('Content-Type: application/json');
-            die(json_encode((object) [
-                'data' => [],
-                'message' => 'Success',
-                'success' => true,
-            ]));
+            die(json_encode($dataTableClass->init()));
         }
 
         // page content
         $pageContent = $this->loadTemplate('../admin/templates/member/index');
 
-        $dataTableClass = new dataTable();
+        // add table layout
         $dataTableTemplate = $this->loadTemplate('../admin/templates/member/table');
-        $dataTableTemplate->addText($dataTableClass->init(), "tableRow");
         $pageContent->addTemplate($dataTableTemplate, 'dataTable');
 
         $this->say($pageContent->run());

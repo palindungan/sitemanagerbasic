@@ -5,38 +5,41 @@ class dataTable extends SM_module
 {
     function init()
     {
-        $query = $this->data();
+        $param['limit'] = $_POST['length'];
+        $param['offset'] = $_POST['start'];
 
-        $row = "";
-        while ($item = $query->fetch()) {
-            $row .= '
-                <tr>
-                    <td>' . $item['idxNum'] . '</td>
-                    <td>' . $item['uID'] . '</td>
-                    <td>' . $item['userName'] . '</td>
-                    <td>' . $item['passWord'] . '</td>
-                    <td>' . $item['emailAddress'] . '</td>
-                    <td>' . $item['firstName'] . '</td>
-                    <td>' . $item['lastName'] . '</td>
-                    <td>' . $item['dateCreated'] . '</td>
-                    <td>
-                        <a href="index.php?menu=member&layout=edit&id=' . $item['idxNum'] . '" class="btn btn-success btn-circle btn-sm">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <button onClick="onDelete(' . $item['idxNum'] . ');" class="btn btn-danger btn-circle btn-sm">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            ';
+        $param['search'] = $_GET['search']['value'];
+        $draw = $_GET['draw'];
+
+        $query = new query();
+        $data_query = $query->getData($param);
+        $data_query_count = $query->getData($param + ["select" => "count(members.idxNum) AS count"]);
+        if ($data_query && $data_query_count->fetch()['count'] > 0) {
+            $data = $data_query->fetchAll();
+        } else {
+            $data = false;
         }
 
-        return $row;
-    }
+        if ($data) {
+            $param2['search'] = $param['search'];
+            $param2['select'] = 'count(members.idxNum) AS count';
 
-    function data($param = array())
-    {
-        $query = new query();
-        return $query->getData($param);
+            $data_query2_count = $query->getData($param2);
+
+            $totaldata = count($data);
+            $datacount = $data_query2_count->fetch()['count'];
+        } else {
+            $totaldata = 0;
+            $datacount = 0;
+        }
+
+        $result = array(
+            'draw' => intval($draw),
+            'recordsTotal' => $totaldata,
+            'recordsFiltered' => $datacount,
+            'data' => $data,
+        );
+
+        return $result;
     }
 }
