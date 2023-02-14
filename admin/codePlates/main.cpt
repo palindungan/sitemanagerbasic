@@ -38,6 +38,8 @@ class main extends SM_codePlate
     function codePlateThink()
     {
         $menu = $this->getVar('menu');
+        $content = $this->loadTemplate('blank');
+
         if ($menu == "login") {
             $this->setMyTemplate('login');
         } else {
