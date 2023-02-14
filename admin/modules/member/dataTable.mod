@@ -20,8 +20,7 @@ class dataTable extends SM_module
 
         $data_query = $this->query->getData($param);
         $data = $data_query->fetchAll();
-        if ($data_query && count($data) > 0) {
-        } else {
+        if (count($data) == 0) {
             $data = false;
         }
 
