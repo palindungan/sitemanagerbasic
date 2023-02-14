@@ -20,11 +20,19 @@
     <!-- Custom styles for this template-->
     <link href="./assets/sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this page -->
-    <link href="./assets/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <SM type="area" name="pageStylesheet"></SM>
 
-    <SM type="area" name="page_stylesheet"></SM>
-    <SM type="area" name="third_party_stylesheet"></SM>
+    <!-- Bootstrap core JavaScript-->
+    <script src="./assets/sb-admin-2/vendor/jquery/jquery.min.js"></script>
+    <script src="./assets/sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="./assets/sb-admin-2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="./assets/sb-admin-2/js/sb-admin-2.min.js"></script>
+
+    <SM type="area" name="pageScripts"></SM>
 
 </head>
 
@@ -224,23 +232,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="./assets/sb-admin-2/vendor/jquery/jquery.min.js"></script>
-    <script src="./assets/sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="./assets/sb-admin-2/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="./assets/sb-admin-2/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="./assets/sb-admin-2/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="./assets/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <SM type="area" name="page_scripts"></SM>
-    <SM type="area" name="third_party_scripts"></SM>
 
 </body>
 
