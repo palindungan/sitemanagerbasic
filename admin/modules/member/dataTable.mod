@@ -20,8 +20,12 @@ class dataTable extends SM_module
                     <td>' . $item['lastName'] . '</td>
                     <td>' . $item['dateCreated'] . '</td>
                     <td>
-                        <a href="index.php?menu=member&layout=edit&id=' . $item['idxNum'] . '">Edit</a>
-                        <a href="index.php?menu=member&action=destroy&id=' . $item['idxNum'] . '">Delete</a>
+                        <a href="index.php?menu=member&layout=edit&id=' . $item['idxNum'] . '" class="btn btn-success btn-circle btn-sm">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="index.php?menu=member&action=destroy&id=' . $item['idxNum'] . '" class="btn btn-danger btn-circle btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             ';
@@ -33,6 +37,6 @@ class dataTable extends SM_module
     function data($param = array())
     {
         $query = new query();
-        return $query->getData();
+        return $query->getData($param);
     }
 }
