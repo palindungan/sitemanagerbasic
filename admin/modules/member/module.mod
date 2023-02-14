@@ -36,9 +36,10 @@ class module extends SM_module
     {
         $layout = $_GET['layout'];
         $action = $_GET['action'];
+        $id = $_GET['id'];
 
         if ($action == 'destroy') {
-            $this->destroy($_GET['id']);
+            $this->destroy($id);
         }
 
         if ($layout == '' || $layout == 'index') {
@@ -56,6 +57,19 @@ class module extends SM_module
 
     function index()
     {
+        $action = $_GET['action'];
+
+        // get data datatable
+        if ($action == 'dataTable') {
+            header('Content-Type: application/json');
+            die(json_encode((object) [
+                'data' => [],
+                'message' => 'Success',
+                'success' => true,
+            ]));
+        }
+
+        // page content
         $pageContent = $this->loadTemplate('../admin/templates/member/index');
 
         $dataTableClass = new dataTable();
@@ -68,6 +82,8 @@ class module extends SM_module
 
     function create()
     {
+        $action = $_GET['action'];
+
         $myForm = $this->form();
         $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
         $myForm->directive['postScript'] = 'index.php?menu=member&layout=create&action=store';
@@ -75,7 +91,7 @@ class module extends SM_module
 
         // verify data, if good, do sql or email, or whatever you'd like with your data
         if ($myForm->dataVerified()) {
-            if ($_GET['action'] == 'store') {
+            if ($action == 'store') {
                 $data = array();
                 $data["idxNum"] = $myForm->getVar("idxNum");
                 $data["uID"] = $myForm->getVar("uID");
@@ -119,19 +135,22 @@ class module extends SM_module
 
     function edit()
     {
-        $SQL = "SELECT * FROM members WHERE idxNum = " . $_GET['id'] . " LIMIT 1";
+        $action = $_GET['action'];
+        $id = $_GET['id'];
+
+        $SQL = "SELECT * FROM members WHERE idxNum = " . $id . " LIMIT 1";
         $query = $this->dbH->query($SQL);
         SM_dbErrorCheck($query, $SQL);
         $item = $query->fetch();
 
         $myForm = $this->form($item);
         $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
-        $myForm->directive['postScript'] = 'index.php?menu=member&layout=edit&id=' . $_GET['id'] . '&action=update';
+        $myForm->directive['postScript'] = 'index.php?menu=member&layout=edit&id=' . $id . '&action=update';
         $myForm->runForm(); // apply the form
 
         // verify data, if good, do sql or email, or whatever you'd like with your data
         if ($myForm->dataVerified()) {
-            if ($_GET['action'] == 'update') {
+            if ($action == 'update') {
                 $data = array();
                 $data["idxNum"] = $myForm->getVar("idxNum");
                 $data["uID"] = $myForm->getVar("uID");
@@ -141,7 +160,7 @@ class module extends SM_module
                 $data["firstName"] = $myForm->getVar("firstName");
                 $data["lastName"] = $myForm->getVar("lastName");
                 $data["dateCreated"] = $myForm->getVar("dateCreated");
-                $this->update($_GET['id'], $data);
+                $this->update($id, $data);
             }
         } else {
             // show form

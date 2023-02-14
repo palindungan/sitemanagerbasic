@@ -37,12 +37,12 @@ class main extends SM_codePlate
      */
     function codePlateThink()
     {
-        $this->setMyTemplate('blank');
         $content = $this->loadTemplate('blank');
 
         $menu = $this->getVar('menu');
         if ($menu == "login") {
             $this->setMyTemplate('login');
+            $this->addText($content->run(), 'pageContent');
         } else {
             $this->setMyTemplate('main');
 
@@ -50,8 +50,8 @@ class main extends SM_codePlate
             if ($menu == "member") {
                 $content = $this->loadModule('../admin/modules/member/module');
             }
-        }
 
-        $this->addText($content->run(), 'pageContent');
+            $this->addText($content->run(), 'pageContent');
+        }
     }
 }

@@ -38,6 +38,18 @@
     // Call the dataTables jQuery plugin
     $(document).ready(function () {
         $('#dataTable').DataTable();
+
+        url = "index.php?menu=member";
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: {
+                'action': 'dataTable'
+            },
+            success: function (result) {
+                console.log(result);
+            }
+        });
     });
 
     function onDelete(id, message = "Delete Data ?") {
