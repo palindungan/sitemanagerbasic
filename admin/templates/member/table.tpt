@@ -68,10 +68,20 @@
                 { data: 'dateCreated', name: 'dateCreated' },
                 {
                     data: 'action',
-                    name: 'idxNum',
                     className: 'text-center',
                     orderable: false,
                     searchable: false,
+                    render: function (data, type, row, meta) {
+                        html = `
+                            <a href="index.php?menu=member&layout=edit&id=` + row.idxNum + `" class="btn btn-success btn-circle btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button onClick="onDelete(` + row.idxNum + `);" class="btn btn-danger btn-circle btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        `;
+                        return html;
+                    }
                 },
             ],
         });
