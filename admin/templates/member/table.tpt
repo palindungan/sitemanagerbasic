@@ -7,8 +7,14 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Name</th>
+                        <th>idxNum</th>
+                        <th>uID</th>
+                        <th>userName</th>
+                        <th>passWord</th>
+                        <th>emailAddress</th>
+                        <th>firstName</th>
+                        <th>lastName</th>
+                        <th>dateCreated</th>
                         <th>Action</th>
                     </tr>
                 </thead>

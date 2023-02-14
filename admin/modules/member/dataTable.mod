@@ -12,8 +12,15 @@ class dataTable extends SM_module
             $row .= '
                 <tr>
                     <td>' . $item['idxNum'] . '</td>
+                    <td>' . $item['uID'] . '</td>
                     <td>' . $item['userName'] . '</td>
+                    <td>' . $item['passWord'] . '</td>
+                    <td>' . $item['emailAddress'] . '</td>
+                    <td>' . $item['firstName'] . '</td>
+                    <td>' . $item['lastName'] . '</td>
+                    <td>' . $item['dateCreated'] . '</td>
                     <td>
+                        <a href="">Edit</a>
                         <a href="">Delete</a>
                     </td>
                 </tr>
