@@ -23,9 +23,9 @@ class dataTable extends SM_module
                         <a href="index.php?menu=member&layout=edit&id=' . $item['idxNum'] . '" class="btn btn-success btn-circle btn-sm">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="index.php?menu=member&action=destroy&id=' . $item['idxNum'] . '" class="btn btn-danger btn-circle btn-sm">
+                        <button onClick="onDelete(' . $item['idxNum'] . ');" class="btn btn-danger btn-circle btn-sm">
                             <i class="fas fa-trash"></i>
-                        </a>
+                        </button>
                     </td>
                 </tr>
             ';
