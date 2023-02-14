@@ -40,7 +40,11 @@ class module extends SM_module
 
     function index()
     {
-        $content = $this->loadTemplate('../admin/templates/member/index');
-        $this->say($content->run());
+        $pageContent = $this->loadTemplate('../admin/templates/member/index');
+
+        $dataTable = $this->loadTemplate('../admin/templates/member/table');
+        $pageContent->addTemplate($dataTable, 'dataTable');
+
+        $this->say($pageContent->run());
     }
 }

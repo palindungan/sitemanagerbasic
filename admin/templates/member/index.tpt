@@ -1,45 +1,12 @@
-<h1 class="h3 mb-4 text-gray-800">Member</h1>
-
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data Member</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
 <!-- Custom styles for this page -->
 <link href="./assets/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-<SM type="area" name="thirdPartyStylesheet"></SM>
+<SM type="area" name="pageStylesheet"></SM>
 
 <!-- Page level plugins -->
 <script src="./assets/sb-admin-2/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="./assets/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<SM type="area" name="pageScripts"></SM>
 
-<SM type="area" name="thirdPartyScripts"></SM>
+<h1 class="h3 mb-4 text-gray-800">Member</h1>
 
-<script>
-    // Call the dataTables jQuery plugin
-    $(document).ready(function () {
-        $('#dataTable').DataTable();
-    });
-</script>
+<SM type="area" name="dataTable"></SM>
