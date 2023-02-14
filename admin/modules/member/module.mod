@@ -95,16 +95,7 @@ class module extends SM_module
         // verify data, if good, do sql or email, or whatever you'd like with your data
         if ($myForm->dataVerified()) {
             if ($action == 'store') {
-                $data = array();
-                $data["idxNum"] = $myForm->getVar("idxNum");
-                $data["uID"] = $myForm->getVar("uID");
-                $data["userName"] = $myForm->getVar("userName");
-                $data["passWord"] = $myForm->getVar("passWord");
-                $data["emailAddress"] = $myForm->getVar("emailAddress");
-                $data["firstName"] = $myForm->getVar("firstName");
-                $data["lastName"] = $myForm->getVar("lastName");
-                $data["dateCreated"] = $myForm->getVar("dateCreated");
-                $this->store($data);
+                $this->store($myForm);
             }
         } else {
             // show form
@@ -114,25 +105,9 @@ class module extends SM_module
         }
     }
 
-    function store($data)
+    function store($myForm)
     {
-        $SQL = "
-            INSERT INTO members
-            (idxNum, uID, userName, passWord, emailAddress, firstName, lastName, dateCreated)
-            VALUES (
-                " . $data['idxNum'] . ",
-                '" . $data['uID'] . "',
-                '" . $data['userName'] . "',
-                '" . $data['passWord'] . "',
-                '" . $data['emailAddress'] . "',
-                '" . $data['firstName'] . "',
-                '" . $data['lastName'] . "',
-                '" . $data['dateCreated'] . "'
-            )
-        ";
-        $query = $this->dbH->query($SQL);
-        SM_dbErrorCheck($query, $SQL);
-
+        $this->query->store(["myForm" => $myForm]);
         header("Location: index.php?menu=member");
     }
 

@@ -63,4 +63,36 @@ class query extends SM_module
 
         return $query;
     }
+
+    function store($param = array())
+    {
+        $myForm = $param["myForm"];
+
+        $data = array();
+        $data["idxNum"] = $myForm->getVar("idxNum");
+        $data["uID"] = $myForm->getVar("uID");
+        $data["userName"] = $myForm->getVar("userName");
+        $data["passWord"] = $myForm->getVar("passWord");
+        $data["emailAddress"] = $myForm->getVar("emailAddress");
+        $data["firstName"] = $myForm->getVar("firstName");
+        $data["lastName"] = $myForm->getVar("lastName");
+        $data["dateCreated"] = $myForm->getVar("dateCreated");
+
+        $SQL = "
+            INSERT INTO members
+            (idxNum, uID, userName, passWord, emailAddress, firstName, lastName, dateCreated)
+            VALUES (
+                " . $data['idxNum'] . ",
+                '" . $data['uID'] . "',
+                '" . $data['userName'] . "',
+                '" . $data['passWord'] . "',
+                '" . $data['emailAddress'] . "',
+                '" . $data['firstName'] . "',
+                '" . $data['lastName'] . "',
+                '" . $data['dateCreated'] . "'
+            )
+        ";
+        $query = $this->dbH->query($SQL);
+        SM_dbErrorCheck($query, $SQL);
+    }
 }
