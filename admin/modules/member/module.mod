@@ -40,6 +40,7 @@ class module extends SM_module
 
     function index()
     {
-        $this->say('<h1 class="h3 mb-4 text-gray-800">Member</h1>');
+        $content = $this->loadTemplate('../admin/templates/member/index');
+        $this->say($content->run());
     }
 }
