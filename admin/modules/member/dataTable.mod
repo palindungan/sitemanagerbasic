@@ -20,8 +20,8 @@ class dataTable extends SM_module
                     <td>' . $item['lastName'] . '</td>
                     <td>' . $item['dateCreated'] . '</td>
                     <td>
-                        <a href="">Edit</a>
-                        <a href="">Delete</a>
+                        <a href="index.php?menu=member&layout=edit&id=' . $item['idxNum'] . '">Edit</a>
+                        <a href="index.php?menu=member&action=destroy&id=' . $item['idxNum'] . '">Delete</a>
                     </td>
                 </tr>
             ';

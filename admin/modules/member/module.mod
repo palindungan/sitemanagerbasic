@@ -117,6 +117,70 @@ class module extends SM_module
         header("Location: index.php?menu=member");
     }
 
+    function edit()
+    {
+        $SQL = "SELECT * FROM members WHERE idxNum = " . $_GET['id'] . " LIMIT 1";
+        $query = $this->dbH->query($SQL);
+        SM_dbErrorCheck($query, $SQL);
+        $item = $query->fetch();
+
+        $myForm = $this->form($item);
+        $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
+        $myForm->directive['postScript'] = 'index.php?menu=member&layout=edit&id=' . $_GET['id'] . '&action=update';
+        $myForm->runForm(); // apply the form
+
+        // verify data, if good, do sql or email, or whatever you'd like with your data
+        if ($myForm->dataVerified()) {
+            if ($_GET['action'] == 'update') {
+                $data = array();
+                $data["idxNum"] = $myForm->getVar("idxNum");
+                $data["uID"] = $myForm->getVar("uID");
+                $data["userName"] = $myForm->getVar("userName");
+                $data["passWord"] = $myForm->getVar("passWord");
+                $data["emailAddress"] = $myForm->getVar("emailAddress");
+                $data["firstName"] = $myForm->getVar("firstName");
+                $data["lastName"] = $myForm->getVar("lastName");
+                $data["dateCreated"] = $myForm->getVar("dateCreated");
+                $this->update($_GET['id'], $data);
+            }
+        } else {
+            // show form
+            $pageContent = $this->loadTemplate('../admin/templates/member/edit');
+            $pageContent->addText($myForm->output('Submit'), "myForm");
+            $this->say($pageContent->run());
+        }
+    }
+
+    function update($id, $data)
+    {
+        $SQL = "
+            UPDATE members
+            SET 
+                idxNum = " . $data['idxNum'] . ",
+                uID = '" . $data['uID'] . "',
+                userName = '" . $data['userName'] . "',
+                passWord = '" . $data['passWord'] . "',
+                emailAddress = '" . $data['emailAddress'] . "',
+                firstName = '" . $data['firstName'] . "',
+                lastName = '" . $data['lastName'] . "',
+                dateCreated = '" . $data['dateCreated'] . "'
+            WHERE idxNum = " . $id . "
+        ";
+        $query = $this->dbH->query($SQL);
+        SM_dbErrorCheck($query, $SQL);
+
+        header("Location: index.php?menu=member");
+    }
+
+    function destroy($id)
+    {
+        $SQL = "DELETE FROM members WHERE idxNum = '$id'";
+        $rh = $this->dbH->query($SQL);
+        SM_dbErrorCheck($rh, $SQL);
+
+        header("Location: index.php?menu=member");
+    }
+
     function form($item = array())
     {
         if (empty($item)) {
