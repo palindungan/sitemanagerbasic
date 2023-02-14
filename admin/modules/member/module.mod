@@ -22,6 +22,13 @@ require_once "query.mod";
  */
 class module extends SM_module
 {
+    public $query;
+
+    function __construct()
+    {
+        $this->query = new query();
+    }
+
     /**
      * run by base class after base runs moduleConfig()
      */
@@ -134,9 +141,7 @@ class module extends SM_module
         $action = $_GET['action'];
         $id = $_GET['id'];
 
-        $SQL = "SELECT * FROM members WHERE idxNum = " . $id . " LIMIT 1";
-        $query = $this->dbH->query($SQL);
-        SM_dbErrorCheck($query, $SQL);
+        $query = $this->query->getData(["get_by_idxNum" => $id,]);
         $item = $query->fetch();
 
         $myForm = $this->form($item);
