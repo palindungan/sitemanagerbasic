@@ -13,10 +13,17 @@ class dataTable extends baseModule
     {
         parent::__construct();
         $this->query = new query();
+
+        $this->addInVar('length', '');
+        $this->addInVar('start', '');
+        $this->addInVar('search', '');
+        $this->addInVar('draw', '');
     }
 
     function init()
     {
+        // die(json_encode($this->getInVarValues()));
+
         $param['limit'] = $_GET['length'];
         $param['offset'] = $_GET['start'];
         $param['search'] = $_GET['search']['value'];
