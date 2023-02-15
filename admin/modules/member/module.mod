@@ -51,9 +51,9 @@ class module extends baseModule
     {
         // die(json_encode($this->getInVarValues()));
 
-        $layout = $_GET['layout'];
-        $action = $_GET['action'];
-        $id = $_GET['id'];
+        $action = $this->getVar('action');
+        $layout = $this->getVar('layout');
+        $id = $this->getVar('id');
 
         if ($action == 'destroy') {
             $this->destroy($id);
@@ -74,7 +74,7 @@ class module extends baseModule
 
     function index()
     {
-        $action = $_GET['action'];
+        $action = $this->getVar('action');
 
         // get data datatable
         if ($action == 'dataTable') {
@@ -95,7 +95,7 @@ class module extends baseModule
 
     function create()
     {
-        $action = $_GET['action'];
+        $action = $this->getVar('action');
 
         $myForm = $this->form();
         $myForm->directive['formAttributes'] = 'role="form" enctype="multipart/form-data"';
@@ -123,8 +123,8 @@ class module extends baseModule
 
     function edit()
     {
-        $action = $_GET['action'];
-        $id = $_GET['id'];
+        $action = $this->getVar('action');
+        $id = $this->getVar('id');
 
         $query = $this->query->getData(["getByIdxNum" => $id,]);
         $item = $query->fetch();
