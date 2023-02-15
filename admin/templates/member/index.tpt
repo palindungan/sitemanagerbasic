@@ -7,6 +7,6 @@
 <script src="./assets/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <SM type="area" name="pageScripts"></SM>
 
-<h1 class="h3 mb-4 text-gray-800">DataTable Member</h1>
+<h1 class="h3 mb-4 text-gray-800">Data Table Member</h1>
 
 <SM type="area" name="dataTable"></SM>
