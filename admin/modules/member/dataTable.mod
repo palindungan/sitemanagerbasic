@@ -17,6 +17,8 @@ class dataTable extends baseModule
         $this->addInVar('length', '');
         $this->addInVar('start', '');
         $this->addInVar('search', '');
+        $this->addInVar('columns', '');
+        $this->addInVar('order', '');
         $this->addInVar('draw', '');
     }
 
@@ -27,8 +29,27 @@ class dataTable extends baseModule
         $param['limit'] = $this->getVar('length');
         $param['offset'] = $this->getVar('start');
         $param['search'] = $this->getVar('search')['value'];
-
         $draw = $this->getVar('draw');
+
+        $request_columns = $this->getVar('columns');
+        $request_order = $this->getVar('order');
+        /*
+            [
+                [
+                   column: "0",
+                   dir: "desc",
+                ],
+                [
+                    column: "1",
+                    dir: "asc",    
+                ],
+            ]
+        */
+        $order = [];
+        foreach ($request_order as $key => $value) {
+            $order[$key] = " " . $request_columns[$value['column']]['name'] . " " . $value['dir'] . " ";
+        }
+        $orderBy = " ORDER BY " . implode(",", $order);
 
         $dataQuery = $this->query->getData($param);
         $data = $dataQuery->fetchAll();
