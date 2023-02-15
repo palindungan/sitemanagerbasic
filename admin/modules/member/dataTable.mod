@@ -32,16 +32,16 @@ class dataTable extends SM_module
             $dataQuery2Count = $this->query->getData($param2);
 
             $recordsTotal = $dataCount;
-            $dataCount = $dataQuery2Count->fetch()['dataCount'];
+            $recordsFiltered = $dataQuery2Count->fetch()['dataCount'];
         } else {
             $recordsTotal = 0;
-            $dataCount = 0;
+            $recordsFiltered = 0;
         }
 
         $result = array(
             'draw' => intval($draw),
             'recordsTotal' => $recordsTotal,
-            'recordsFiltered' => $dataCount,
+            'recordsFiltered' => $recordsFiltered,
             'data' => $data,
         );
 
