@@ -58,14 +58,14 @@
                 }
             },
             columns: [
-                { data: 'idxNum', name: 'idxNum' },
-                { data: 'uID', name: 'uID' },
-                { data: 'userName', name: 'userName' },
-                { data: 'passWord', name: 'passWord' },
-                { data: 'emailAddress', name: 'emailAddress' },
-                { data: 'firstName', name: 'firstName' },
-                { data: 'lastName', name: 'lastName' },
-                { data: 'dateCreated', name: 'dateCreated' },
+                { data: 'idxNum', name: 'members.idxNum' },
+                { data: 'uID', name: 'members.uID' },
+                { data: 'userName', name: 'members.userName' },
+                { data: 'passWord', name: 'members.passWord' },
+                { data: 'emailAddress', name: 'members.emailAddress' },
+                { data: 'firstName', name: 'members.firstName' },
+                { data: 'lastName', name: 'members.lastName' },
+                { data: 'dateCreated', name: 'members.dateCreated' },
                 {
                     data: 'action',
                     className: 'text-center',
