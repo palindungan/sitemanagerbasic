@@ -1,12 +1,17 @@
 <?php
+require_once "../admin/modules/baseModule.mod";
 require_once "query.mod";
 
-class dataTable extends SM_module
+global $SM_siteManager;
+$SM_siteManager->includeModule('baseModule');
+
+class dataTable extends baseModule
 {
     public $query;
 
     function __construct()
     {
+        parent::__construct();
         $this->query = new query();
     }
 
