@@ -24,11 +24,11 @@ class dataTable extends baseModule
     {
         // die(json_encode($this->getInVarValues()));
 
-        $param['limit'] = $_GET['length'];
-        $param['offset'] = $_GET['start'];
-        $param['search'] = $_GET['search']['value'];
+        $param['limit'] = $this->getVar('length');
+        $param['offset'] = $this->getVar('start');
+        $param['search'] = $this->getVar('search')['value'];
 
-        $draw = $_GET['draw'];
+        $draw = $this->getVar('draw');
 
         $dataQuery = $this->query->getData($param);
         $data = $dataQuery->fetchAll();
