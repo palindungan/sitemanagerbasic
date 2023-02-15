@@ -1,6 +1,10 @@
 <?php
+require_once "../admin/modules/baseModule.mod";
 
-class query extends SM_module
+global $SM_siteManager;
+$SM_siteManager->includeModule('baseModule');
+
+class query extends baseModule
 {
     function getData($param = [])
     {
