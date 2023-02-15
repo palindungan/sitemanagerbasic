@@ -1,6 +1,7 @@
 <?php
 require_once "dataTable.mod";
 require_once "query.mod";
+require_once "../admin/modules/baseModule.mod";
 
 /*********************************************************************
  *  Roadsend SiteManager
@@ -18,14 +19,18 @@ require_once "query.mod";
  */
 
 /**
- * extend testBase for testing sitemanager functionality
+ * extend baseModule for testing sitemanager functionality
  */
-class module extends SM_module
+global $SM_siteManager;
+$SM_siteManager->includeModule('baseModule');
+
+class module extends baseModule
 {
     public $query;
 
     function __construct()
     {
+        parent::__construct();
         $this->query = new query();
     }
 
@@ -34,6 +39,9 @@ class module extends SM_module
      */
     function T_moduleConfig()
     {
+        $this->addInVar('action', '');
+        $this->addInVar('layout', '');
+        $this->addInVar('id', 0);
     }
 
     /**
@@ -41,6 +49,8 @@ class module extends SM_module
      */
     function moduleThink()
     {
+        // die(json_encode($this->getInVarValues()));
+
         $layout = $_GET['layout'];
         $action = $_GET['action'];
         $id = $_GET['id'];
