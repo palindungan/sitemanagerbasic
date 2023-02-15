@@ -53,8 +53,8 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Home</span>
                 </a>
             </li>
 
@@ -77,7 +77,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Member:</h6>
                         <a class="collapse-item" href="index.php?menu=member">Member</a>
-                        <!-- <a class="collapse-item" href="#">Member</a> -->
+                        <a class="collapse-item" href="member2.php">Member 2</a>
                     </div>
                 </div>
             </li>
