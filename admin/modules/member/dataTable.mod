@@ -18,29 +18,30 @@ class dataTable extends SM_module
 
         $draw = $_GET['draw'];
 
-        $data_query = $this->query->getData($param);
-        $data = $data_query->fetchAll();
-        if (count($data) == 0) {
+        $dataQuery = $this->query->getData($param);
+        $data = $dataQuery->fetchAll();
+        $dataCount = count($data);
+        if ($dataCount == 0) {
             $data = false;
         }
 
-        if ($data) {
+        if ($dataCount > 0) {
             $param2['search'] = $param['search'];
-            $param2['select'] = 'COUNT(members.idxNum) AS countData';
+            $param2['select'] = 'COUNT(members.idxNum) AS dataCount';
 
-            $data_query2_count = $this->query->getData($param2);
+            $dataQuery2Count = $this->query->getData($param2);
 
-            $totaldata = count($data);
-            $datacount = $data_query2_count->fetch()['countData'];
+            $totalData = $dataCount;
+            $dataCount = $dataQuery2Count->fetch()['dataCount'];
         } else {
-            $totaldata = 0;
-            $datacount = 0;
+            $totalData = 0;
+            $dataCount = 0;
         }
 
         $result = array(
             'draw' => intval($draw),
-            'recordsTotal' => $totaldata,
-            'recordsFiltered' => $datacount,
+            'recordsTotal' => $totalData,
+            'recordsFiltered' => $dataCount,
             'data' => $data,
         );
 
