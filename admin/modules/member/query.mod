@@ -53,6 +53,11 @@ class query extends baseModule
         if (isset($param["groupBy"]) && !empty($param["groupBy"])) {
             $groupBy = " " . "GROUP BY " . $param["groupBy"] . " ";
         }
+
+        $orderBy = "";
+        if (isset($param["orderBy"]) && !empty($param["orderBy"])) {
+            $orderBy = " " . "ORDER BY " . $param["orderBy"] . " ";
+        }
         // end of custom
 
         $SQL = "
@@ -64,6 +69,7 @@ class query extends baseModule
                 " . $getByIdxNum . "
                 " . $getBySearch . "
                 " . $groupBy . "
+                " . $orderBy . "
                 " . $limit . "
                 " . $offset . "
         ";

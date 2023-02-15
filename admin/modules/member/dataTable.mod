@@ -31,25 +31,14 @@ class dataTable extends baseModule
         $param['search'] = $this->getVar('search')['value'];
         $draw = $this->getVar('draw');
 
+        // set ORDER BY
         $request_columns = $this->getVar('columns');
         $request_order = $this->getVar('order');
-        /*
-            [
-                [
-                   column: "0",
-                   dir: "desc",
-                ],
-                [
-                    column: "1",
-                    dir: "asc",    
-                ],
-            ]
-        */
         $order = [];
         foreach ($request_order as $key => $value) {
             $order[$key] = " " . $request_columns[$value['column']]['name'] . " " . $value['dir'] . " ";
         }
-        $orderBy = " ORDER BY " . implode(",", $order) . " ";
+        $param['orderBy'] = implode(",", $order);
 
         $dataQuery = $this->query->getData($param);
         $data = $dataQuery->fetchAll();
