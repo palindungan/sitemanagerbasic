@@ -41,7 +41,7 @@ class dataTable extends SM_module
         $result = array(
             'draw' => intval($draw),
             'recordsTotal' => $recordsTotal,
-            'recordsFiltered' => $recordsFiltered,
+            'recordsFiltered' => intval($recordsFiltered),
             'data' => $data,
         );
 
