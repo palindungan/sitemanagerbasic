@@ -161,6 +161,3 @@ class testBase extends SM_module {
     }
 
 }
-
-
-?>

@@ -39,7 +39,7 @@ class nFunctionMenu extends SM_module
 
         // build menu
 
-        $item = $menu->addItem('Aplikasi');
+        $item = $menu->addItem('SITEMANAGER');
         $item->addLinkItem('Home', 'index.php');
         $item->addLinkItem('Member', 'index.php?menu=member');
         $item->addLinkItem('Member 2', 'member2.php');
