@@ -4,9 +4,9 @@ class query extends SM_module
 {
     function getData($param = [])
     {
-        $get_by_search = "";
+        $getBySearch = "";
         if (isset($param['search']) && !empty($param['search'])) {
-            $get_by_search =
+            $getBySearch =
                 " " .
                 "AND (
                     members.idxNum LIKE '%" . $param['search'] . "%' OR
@@ -40,14 +40,14 @@ class query extends SM_module
         }
 
         // start of custom
-        $get_by_idxNum = "";
-        if (isset($param["get_by_idxNum"]) && !empty($param["get_by_idxNum"])) {
-            $get_by_idxNum = " " . "AND members.idxNum = " . $param["get_by_idxNum"] . " ";
+        $getByIdxNum = "";
+        if (isset($param["getByIdxNum"]) && !empty($param["getByIdxNum"])) {
+            $getByIdxNum = " " . "AND members.idxNum = " . $param["getByIdxNum"] . " ";
         }
 
-        $group_by = "";
-        if (isset($param["group_by"]) && !empty($param["group_by"])) {
-            $group_by = " " . "GROUP BY " . $param["group_by"] . " ";
+        $groupBy = "";
+        if (isset($param["groupBy"]) && !empty($param["groupBy"])) {
+            $groupBy = " " . "GROUP BY " . $param["groupBy"] . " ";
         }
         // end of custom
 
@@ -57,9 +57,9 @@ class query extends SM_module
             FROM members
             WHERE
                 members.idxNum > 0
-                " . $get_by_idxNum . "
-                " . $get_by_search . "
-                " . $group_by . "
+                " . $getByIdxNum . "
+                " . $getBySearch . "
+                " . $groupBy . "
                 " . $limit . "
                 " . $offset . "
         ";

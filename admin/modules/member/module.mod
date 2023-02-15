@@ -116,7 +116,7 @@ class module extends SM_module
         $action = $_GET['action'];
         $id = $_GET['id'];
 
-        $query = $this->query->getData(["get_by_idxNum" => $id,]);
+        $query = $this->query->getData(["getByIdxNum" => $id,]);
         $item = $query->fetch();
 
         $myForm = $this->form($item);
