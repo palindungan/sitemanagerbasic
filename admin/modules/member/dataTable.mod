@@ -49,7 +49,7 @@ class dataTable extends baseModule
         foreach ($request_order as $key => $value) {
             $order[$key] = " " . $request_columns[$value['column']]['name'] . " " . $value['dir'] . " ";
         }
-        $orderBy = " ORDER BY " . implode(",", $order);
+        $orderBy = " ORDER BY " . implode(",", $order) . " ";
 
         $dataQuery = $this->query->getData($param);
         $data = $dataQuery->fetchAll();
