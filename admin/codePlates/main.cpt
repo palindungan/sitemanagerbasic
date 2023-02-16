@@ -27,7 +27,6 @@ class main extends SM_codePlate
      */
     function codePlateConfig()
     {
-        $this->addInVar('menu', '');
     }
 
     /**
@@ -37,21 +36,6 @@ class main extends SM_codePlate
      */
     function codePlateThink()
     {
-        $menu = $this->getVar('menu');
-        if ($menu == "login") {
-            $this->setMyTemplate('login');
-            $content = $this->loadTemplate('blank');
-            $this->addText($content->run(), 'pageContent');
-        } else {
-            $this->setMyTemplate('main');
-
-            if ($menu == "member") {
-                $content = $this->loadModule('../admin/modules/member/module');
-            } else {
-                $content = $this->loadModule('home');
-            }
-
-            $this->addText($content->run(), 'pageContent');
-        }
+        $this->setMyTemplate('index');
     }
 }
