@@ -27,34 +27,32 @@
 
     change history:
             
-                05/15/01 - script created by weyrick
+                xx/xx/xx - script created by xxx
                     
 */
 
 // site name and ID. used for debug output and configuration
-$SM_siteName    = "SiteManager Test Site";
-$SM_siteID      = "TESTSITE";
+$SM_siteName    = "Project Name";
+$SM_siteID      = "PROJ1";
 
 // Roadsend SiteManager Functionality
-require(dirname(__FILE__) . "../../siteManager/siteManager.inc");
+require(dirname(__FILE__)."../../siteManager/siteManager.inc");
 
 // set base admin directory
-$adminDir = dirname(__FILE__) . "/";
-
-// this is a global defined to test teh GCS
-$testGlobal = 'FU';
+if(substr(PHP_OS, 0, 3) == "WIN") {
+    // windows
+    $adminDir = dirname(__FILE__)."/";
+}
+else {
+    // unix
+    $adminDir = "/var/www/html/project/admin/";
+}
 
 // load in site settings through SM_siteManager
-$SM_siteManager->loadSite($adminDir . 'config/localConfig.xsm');
+$SM_siteManager->loadSite($adminDir.'config/localConfig.xsm');
 
 // connect to database, using settings from localConfig.xsm
-$SM_siteManager->dbConnect();
-
-if ($SM_develState) {
-    if ((isset($_GET['SM_queryTrace'])) && ($_GET['SM_queryTrace'] == 1)) {
-        $SM_siteManager->dbH->startQueryTrace();
-    }
-}
+//$SM_siteManager->dbConnect();
 
 // use sessions
 $SM_siteManager->startSessions();
@@ -62,32 +60,24 @@ $SM_siteManager->startSessions();
 // setup debug session?
 if ($SM_develState) {
     $SM_siteManager->addPersistent('SM_debug');
-    if ((isset($_GET['SM_debug'])) && ($_GET['SM_debug'] == 1)) {
-        $SM_siteManager->sessionH->setPersistent('SM_debug', 1);
-    } else if (isset($_GET['SM_debug'])) {
-        $SM_siteManager->sessionH->setPersistent('SM_debug', 0);
+    if ((isset($_GET['SM_debug']))&&($_GET['SM_debug'] == 1)) {
+        $SM_siteManager->sessionH->setPersistent('SM_debug',1);
     }
-    $SM_siteManager->addPersistent('SM_queryTrace');
-    if ((isset($_GET['SM_queryTrace'])) && ($_GET['SM_queryTrace'] == 1)) {
-        $SM_siteManager->sessionH->setPersistent('SM_debug', 1);
+    else if (isset($_GET['SM_debug'])) {
+        $SM_siteManager->sessionH->setPersistent('SM_debug',0);
     }
 }
 
+// add a variable to keep persistent
+//$SM_siteManager->addPersistent("varName");
 
-// hook for grabbing extra member information
-// this is run when the member system loads the member information from the main table
-// (or from a persistent variable)
-function testMemberLoad(&$memberData)
-{
+// authorization list for SM_basicAuth (auth.inc)
+//$authList   = array(
+//    "username1" => "password1",
+//    "username2" => "password2"
+//);
 
-    // alter the main users memberData for other modules and code to see
-    $memberData['testMemberLoad'] = 'ran testMemberLoad';
+// other included libraries
+//require($adminDir."functions.inc");
 
-    // could be looking up more info in a database, or whatever else...
-    // to access the SiteManager database settings, use
-
-    // $SM_siteManager->dbH
-
-    // after declaring $SM_siteManager as a global
-
-}
+?>
